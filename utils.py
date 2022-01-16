@@ -1,4 +1,5 @@
 # Collection of Functions for running notebooks
+import matplotlib.pyplot as plt
 
 def pawpularity_pics(df, num_images, desired_pawpularity, random_state):
     '''The pawpularity_pics() function accepts 4 parameters: df is a dataframe, 
