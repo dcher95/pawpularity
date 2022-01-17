@@ -1,4 +1,7 @@
 # Collection of Functions for running notebooks
+
+### EDA
+
 import matplotlib.pyplot as plt
 
 def pawpularity_pics(df, num_images, desired_pawpularity, random_state):
@@ -37,3 +40,34 @@ def pawpularity_pics(df, num_images, desired_pawpularity, random_state):
         plt.imshow(image_array)
     plt.show()
     plt.close()
+    
+### Data Augmentation
+class config:
+    DIRECTORY_PATH = "../input/petfinder-pawpularity-score"
+    TRAIN_FOLDER_PATH = DIRECTORY_PATH + "/train"
+    TRAIN_CSV_PATH = DIRECTORY_PATH + "/train.csv"
+    TEST_CSV_PATH = DIRECTORY_PATH + "/test.csv"
+    
+    SEED = 42
+    
+# wandb config
+WANDB_CONFIG = {
+     'competition': 'PetFinder', 
+              '_wandb_kernel': 'neuracort'
+    }
+
+def set_seed(seed=config.SEED):
+    random.seed(seed)
+    os.environ["PYTHONHASHSEED"] = str(seed)
+    np.random.seed(seed)
+    
+    torch.manual_seed(seed) # Sets the seed for generating random numbers
+    torch.cuda.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+    
+    # Documentation regarding randomness in PyTorch devices: https://pytorch.org/docs/stable/notes/randomness.html
+    torch.backends.cudnn.deterministic = True # only applies to CUDA convolution operations 
+    
+    # It enables benchmark mode in cudnn. benchmark mode is good whenever your input sizes for your network do not vary. This way, cudnn will look for the optimal set of algorithms for that particular configuration (which takes some time). This usually leads to faster runtime.
+    # But if your input sizes changes at each iteration, then cudnn will benchmark every time a new size appears, possibly leading to worse runtime performances.
+    torch.backends.cudnn.benchmark = False
