@@ -42,6 +42,9 @@ def pawpularity_pics(df, num_images, desired_pawpularity, random_state):
     plt.close()
     
 ### Data Augmentation
+import random
+import torch
+
 class config:
     DIRECTORY_PATH = "../input/petfinder-pawpularity-score"
     TRAIN_FOLDER_PATH = DIRECTORY_PATH + "/train"
@@ -71,3 +74,7 @@ def set_seed(seed=config.SEED):
     # It enables benchmark mode in cudnn. benchmark mode is good whenever your input sizes for your network do not vary. This way, cudnn will look for the optimal set of algorithms for that particular configuration (which takes some time). This usually leads to faster runtime.
     # But if your input sizes changes at each iteration, then cudnn will benchmark every time a new size appears, possibly leading to worse runtime performances.
     torch.backends.cudnn.benchmark = False
+    
+def return_filpath(name, folder=config.TRAIN_FOLDER_PATH):
+    path = os.path.join(folder, f'{name}.jpg')
+    return path
