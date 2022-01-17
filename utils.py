@@ -44,6 +44,8 @@ def pawpularity_pics(df, num_images, desired_pawpularity, random_state):
 ### Data Augmentation
 import random
 import torch
+import os
+import numpy as np
 
 class config:
     DIRECTORY_PATH = "../input/petfinder-pawpularity-score"
